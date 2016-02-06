@@ -1,10 +1,10 @@
 class CreateRecipes < ActiveRecord::Migration
   def change
-    create_table :schoolbooks do |t|
-      t.references :recipe_name, index: true
-      t.integer :cookpad_code
-      t.image_available :boolean
-      t.image_file :string
+    create_table :recipes do |t|
+      t.references :menu, index: true
+      t.integer    :cookpad_code,    comment: '例）http://cookpad.com/recipe/887445の"887445"'
+      t.boolean    :image_available, comment: '画像取得に成功したらtrue、失敗したらfalse'
+      t.string     :image_file_name, comment: '画像のディレクトリ/ファイル名。data/images/[menus.rakuten_code]/[クックパッドのファイル名そのまま]'
 
       t.timestamps null: false
     end

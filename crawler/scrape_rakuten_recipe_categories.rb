@@ -1,4 +1,6 @@
-require 'nokogiri'
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
 require 'open-uri'
 require 'csv'
 
@@ -43,7 +45,7 @@ end
 
 # 結果をcsvに書き出す
 # まだ削除すべきものはたくさん含まれるが、手で消すことにする
-CSV.open(File.expand_path('../data/recipes.csv', __FILE__), 'w') do |recipes|
+CSV.open(File.expand_path('../data/menus.csv', __FILE__), 'w') do |recipes|
   array_data.each do |datum|
     recipes << [datum[:category], datum[:recipe]]
   end
