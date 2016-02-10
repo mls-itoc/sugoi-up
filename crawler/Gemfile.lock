@@ -26,6 +26,7 @@ GEM
     minitest (5.8.4)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    rake (10.5.0)
     robotex (1.0.0)
     sqlite3 (1.3.11)
     thread_safe (0.3.5)
@@ -40,6 +41,7 @@ DEPENDENCIES
   activerecord
   anemone
   nokogiri
+  rake
   sqlite3
 
 BUNDLED WITH
