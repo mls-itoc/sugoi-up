@@ -7,30 +7,23 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Menus < ActiveRecord::Base
+  include AASM
+  
+    aasm :column => :crawl_status do
+    state :waiting, :initial => true
+    state :crawling
+    state :completed
+
+    event :start do
+      transitions :from => :waiting, :to => :crawling
+    end
+
+    event :compl do
+      transitions :from => :crawling, :to => :completed
+    end
+
+  end
 end
 
 class Recipes < ActiveRecord::Base
-end
-
-class Job
-  include AASM
-
-  aasm do
-    state :sleeping, :initial => :waiting
-    state :running, :initial => :crawling
-    state :cleaning, :initial => :completed
-
-    event :run do
-      transitions :from => :sleeping, :to => :running
-    end
-
-    event :clean do
-      transitions :from => :running, :to => :cleaning
-    end
-
-    event :sleep do
-      transitions :from => [:running, :cleaning], :to => :sleeping
-    end
-  end
-
 end
