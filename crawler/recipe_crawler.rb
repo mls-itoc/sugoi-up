@@ -7,14 +7,14 @@ require './model/menu.rb'
 require 'open-uri'
 require 'fileutils'
 
-#i = nil
-#if ARGV[0]
-#  i = ARGV[0]
-#end
+i = nil
+if ARGV[0]
+  i = ARGV[0].to_i
+end
 
 options = {
-  :delay => 1#,
-  #:depth_limit => i
+  :delay => 1,
+  :depth_limit => i
 }
 
 words = Menus.all
@@ -44,49 +44,41 @@ words.each do |word|
       recipe_urls.each do |recipe_url|
         recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
         p recipe_id
-        #puts File::expand_path('.')
         if Dir.exist?(File.expand_path("../data/#{code}/", __FILE__))== false
           mkdir(File.expand_path("../data/#{code}/", __FILE__))
         end
         
         open(recipe_url) do |uri|
           
-          
-          
           File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__), 'w') do |html|
             html.puts(uri.read)
           end
-
-            #画像の抽出
-            image = Nokogiri::HTML.parse(File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__)))
-            url = image.css('//meta[property="og:image"]/@content').to_s
-
-            puts url
-            name = url.rpartition("/")
-            name = name[2].rpartition("?")
-            fileName = File.basename(name[0])
-            dirName = File.expand_path("../data/images/#{code}/", __FILE__)
-            filePath = dirName + fileName
-
-            FileUtils.mkdir_p(dirName) unless FileTest.exist?(dirName)
-
-            open(filePath, 'wb') do |output|
-              open(url) do |data|
+           #画像の保存
+          image_url = Nokogiri::HTML.parse(File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__)))
+          image_url = image_url.css('//img[data-track-label="Main Photo"]/@data-large-photo').to_s
+          puts image_url
+          name = image_url.rpartition("/")
+          name = name[2].rpartition("?")
+          file_name = File.basename(name[0])
+          dir_name = File.expand_path("../data/images/#{code}/", __FILE__)
+          file_path = dir_name + file_name
+        
+          FileUtils.mkdir_p(dir_name) unless FileTest.exist?(dir_name)
+            open(file_path, 'wb') do |output|
+              open(image_url) do |data|
                 output.write(data.read)
               end
             end
-            if FileTest.exist?(dirName)
+            if FileTest.exist?(dir_name)
               image_available = true
             else
               image_available = false
             end
-            Recipes.create(:cookpad_code => recipe_id,:image_available => image_available,:image_file_name => fileName)
-          
-        end
+            #テーブルに挿入
+            Recipes.create(:cookpad_code => recipe_id,:image_available => image_available,:image_file_name => file_path)
+          end
         sleep options[:delay]
       end
-
     end
-
   end
 end
