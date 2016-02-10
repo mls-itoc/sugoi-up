@@ -23,7 +23,7 @@ words.each do |word|
   recipe = URI.escape(word.name)
   code = word.rakuten_code
 
-  Anemone.crawl("http://cookpad.com/search/#{recipe}", options) do |anemone| #検索結果ページ
+  Anemone.crawl("http://cookpad.com/search/#{recipe}", options) do |anemone| 
 
     anemone.focus_crawl do |page|
       page.links.keep_if { |link|
@@ -57,6 +57,7 @@ words.each do |word|
           image_url = Nokogiri::HTML.parse(File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__)))
           image_url = image_url.css('//img[data-track-label="Main Photo"]/@data-large-photo').to_s
           puts image_url
+          
           name = image_url.rpartition("/")
           name = name[2].rpartition("?")
           file_name = File.basename(name[0])
@@ -69,11 +70,13 @@ words.each do |word|
                 output.write(data.read)
               end
             end
+            
             if FileTest.exist?(dir_name)
               image_available = true
             else
               image_available = false
             end
+            
             #テーブルに挿入
             Recipes.create(:cookpad_code => recipe_id,:image_available => image_available,:image_file_name => file_path)
           end
