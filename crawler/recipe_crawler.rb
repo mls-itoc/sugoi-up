@@ -4,9 +4,17 @@ Bundler.require
 require 'uri'
 require './model/menu.rb'
 
+require 'open-uri'
+require 'fileutils'
+
+#i = nil
+#if ARGV[0]
+#  i = ARGV[0]
+#end
+
 options = {
   :delay => 1#,
-  # :depth_limit => 0
+  #:depth_limit => i
 }
 
 words = Menus.all
@@ -44,9 +52,31 @@ words.each do |word|
         open(recipe_url) do |uri|
           
           
+          
           File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__), 'w') do |html|
+            
             html.puts(uri.read)
           end
+
+            #画像の抽出
+            image = Nokogiri::HTML.parse(File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__)))
+            url = image.css('//meta[property="og:image"]/@content').to_s
+
+            puts url
+            name = url.rpartition("/")
+            name = name[2].rpartition("?")
+            fileName = File.basename(name[0])
+            dirName = File.expand_path("../data/images/#{code}/", __FILE__)
+            filePath = dirName + fileName
+
+            FileUtils.mkdir_p(dirName) unless FileTest.exist?(dirName)
+
+            open(filePath, 'wb') do |output|
+              open(url) do |data|
+                output.write(data.read)
+              end
+            end
+          
         end
         sleep options[:delay]
       end
