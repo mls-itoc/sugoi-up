@@ -9,3 +9,5 @@ ActiveRecord::Base.establish_connection(
 class Menus < ActiveRecord::Base
 end
 
+class Recipes < ActiveRecord::Base
+end

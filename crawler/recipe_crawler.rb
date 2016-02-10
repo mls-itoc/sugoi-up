@@ -54,7 +54,6 @@ words.each do |word|
           
           
           File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__), 'w') do |html|
-            
             html.puts(uri.read)
           end
 
@@ -76,6 +75,12 @@ words.each do |word|
                 output.write(data.read)
               end
             end
+            if FileTest.exist?(dirName)
+              image_available = true
+            else
+              image_available = false
+            end
+            Recipes.create(:cookpad_code => recipe_id,:image_available => image_available,:image_file_name => fileName)
           
         end
         sleep options[:delay]
