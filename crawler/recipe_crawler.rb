@@ -54,18 +54,8 @@ words.each do |word|
             j -= 1
             recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
             unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
-            p page.url.to_s
-              unless Dir.exist?(File.expand_path("../data/#{code}/", __FILE__))
-                mkdir(File.expand_path("../data/#{code}/", __FILE__))
-              end
-          
-              open(recipe_url) do |uri|
-            
-                File.open(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__), 'w') do |html|
-                  html.puts(uri.read)
-                end
-                get_image(code,recipe_id)
-              end
+              get_html(page,code,recipe_id,recipe_url)#HTMLを保存する
+              get_image(code,recipe_id)#画像を保存する
             end
             if j <= 0
               page_flg = true
