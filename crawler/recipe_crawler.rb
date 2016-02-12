@@ -9,16 +9,17 @@ require 'fileutils'
 
 
 i = nil
+page_n = 1
 limit_flg = false
 unless ARGV[0] == nil
-  i = (ARGV[0].to_i)*2
+  i = (ARGV[0].to_i) * 2
   limit_flg = true
-  page_n = (i / 5)+1
+  page_n = (i / 5) + 1
 end
 
 options = {
-  :delay => 1,
-  :depth_limit => page_n
+  delay: 1,
+  depth_limit: page_n
 }
 
 words = Menus.all
@@ -48,21 +49,17 @@ words.each do |word|
             href = atag.get_attribute('href')
             recipe_urls << href if href.match(/\/recipe\/\d+\z/) #結果のレシピ番号を探す
         end
-        
         recipe_urls.each do |recipe_url|
-          unless limit_flg &&  j <= 0
-            recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
-            unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
-              get_html(page,code,recipe_id,recipe_url)#HTMLを保存する
-              get_image(code,recipe_id)#画像を保存する
-            end
-            if limit_flg
-              j -= 1
-              if j <= 0
-                page_flg = true
-              end
-            end
-            sleep options[:delay]
+        unless limit_flg &&  j <= 0
+          recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
+          unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
+            get_html(page, code, recipe_id, recipe_url)#HTMLを保存する
+            get_image(code, recipe_id)#画像を保存する
+          end
+          if limit_flg
+            j -= 1
+          end
+          sleep options[:delay]
           end
         end
       end
@@ -71,3 +68,4 @@ words.each do |word|
     puts word.crawl_status
   end
 end
+

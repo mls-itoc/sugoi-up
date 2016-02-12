@@ -17,11 +17,7 @@ def get_image(code,recipe_id)#HTMLファイルから画像の取得保存
     end
   end
                 
-  if FileTest.exist?(file_path)
-    image_available = true
-  else
-    image_available = false
-  end
+  image_available = FileTest.exist?(file_path)
                     
   #テーブルに挿入
   Recipes.create(:cookpad_code => recipe_id,:image_available => image_available,:image_file_name => file_path)

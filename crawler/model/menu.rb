@@ -15,7 +15,7 @@ class Menus < ActiveRecord::Base
     state :completed
 
     event :start do
-      transitions [:from,:crawling] => :waiting, :to => :crawling
+      transitions [:from, :crawling] => :waiting, :to => :crawling
     end
 
     event :compl do
