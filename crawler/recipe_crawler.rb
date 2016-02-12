@@ -33,13 +33,11 @@ words.each do |word|
     word.start!
     
     Anemone.crawl("http://cookpad.com/search/#{recipe}", options) do |anemone| #検索結果ページ
-      
       anemone.focus_crawl do |page|#ページ切り替え
         page.links.keep_if { |link|
           link.to_s.match(%r[\/search/#{recipe}\?page=\d+&recipe_hit])
         }
       end
-      
       
       anemone.on_every_page do |page|
         
@@ -68,8 +66,6 @@ words.each do |word|
                 end
                 get_image(code,recipe_id)
               end
-            else
-              puts "skip"
             end
             if j <= 0
               page_flg = true
