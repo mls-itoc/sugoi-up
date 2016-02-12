@@ -50,15 +50,17 @@ words.each do |word|
         end
         
         recipe_urls.each do |recipe_url|
-          unless j <= 0 &&  limit_flg
-            j -= 1
+          unless limit_flg &&  j <= 0
             recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
             unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
               get_html(page,code,recipe_id,recipe_url)#HTMLを保存する
               get_image(code,recipe_id)#画像を保存する
             end
-            if j <= 0
-              page_flg = true
+            if limit_flg
+              j -= 1
+              if j <= 0
+                page_flg = true
+              end
             end
             sleep options[:delay]
           end
