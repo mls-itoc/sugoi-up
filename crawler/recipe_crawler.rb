@@ -9,12 +9,16 @@ require 'fileutils'
 
 
 i = nil
-page_n = 1
+page_n = false
 limit_flg = false
 unless ARGV[0] == nil
   i = (ARGV[0].to_i) * 2
   limit_flg = true
-  page_n = (i / 5) + 1
+  page_n = (i / 20)
+  if (i % 20) == 0
+    page_n -= 1
+  end
+  puts page_n
 end
 
 options = {
@@ -50,16 +54,17 @@ words.each do |word|
             recipe_urls << href if href.match(/\/recipe\/\d+\z/) #結果のレシピ番号を探す
         end
         recipe_urls.each do |recipe_url|
-        unless limit_flg &&  j <= 0
-          recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
-          unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
-            get_html(page, code, recipe_id, recipe_url)#HTMLを保存する
-            get_image(code, recipe_id)#画像を保存する
-          end
-          if limit_flg
-            j -= 1
-          end
-          sleep options[:delay]
+          unless limit_flg &&  j <= 0
+            recipe_id = recipe_url.match(/(\d+)\z/)[1] #url末尾から保存用のIDを取得する
+            unless FileTest.exist?(File.expand_path("../data/#{code}/#{recipe_id}.html", __FILE__))
+              puts recipe_url
+              get_html(code, recipe_id, recipe_url)#HTMLを保存する
+              get_image(code, recipe_id)#画像を保存する
+            end
+            if limit_flg
+              j -= 1
+            end
+            sleep options[:delay]
           end
         end
       end
