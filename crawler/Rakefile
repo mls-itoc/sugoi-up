@@ -6,8 +6,8 @@ namespace :db do
  
   # connect the database
   ActiveRecord::Base.establish_connection(
-    :adapter => 'sqlite3',
-    :database => './recipe.sqlite'
+    adapter: 'sqlite3',
+    database: './db/recipe.sqlite'
   )
  
   # outpt logs
