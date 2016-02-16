@@ -9,12 +9,16 @@ require 'fileutils'
 
 
 i = nil
-page_n = 0
+page_n = false
 limit_flg = false
 unless ARGV[0] == nil
   i = (ARGV[0].to_i) * 2
   limit_flg = true
   page_n = (i / 20)
+  if (i % 20) == 0
+    page_n -= 1
+  end
+  puts page_n
 end
 
 options = {
