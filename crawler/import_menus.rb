@@ -6,12 +6,12 @@ ActiveRecord::Base.establish_connection(
   database:  "db/recipe.sqlite"
 )
 
-class Menus < ActiveRecord::Base
+class Menu < ActiveRecord::Base
 end
 
-Menus.destroy_all #menusテーブルを空にする
+Menu.destroy_all #menusテーブルを空にする
 
 CSV.foreach("data/menus.csv") do |row| #menus.csvの内容をすべてテーブルにInsertする
   code = row[0].split("_")[1] #"category_"の部分は使用しない
-  Menus.create(rakuten_code: code, name: row[1])
+  Menu.create(rakuten_code: code, name: row[1])
 end

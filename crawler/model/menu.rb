@@ -6,7 +6,9 @@ ActiveRecord::Base.establish_connection(
   database:  "db/recipe.sqlite"
 )
 
-class Menus < ActiveRecord::Base
+class Menu < ActiveRecord::Base
+  has_many :recipes
+
   include AASM
 
   aasm :column => :crawl_status do
@@ -25,5 +27,3 @@ class Menus < ActiveRecord::Base
   end
 end
 
-class Recipes < ActiveRecord::Base
-end
