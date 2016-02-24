@@ -17,21 +17,32 @@ class Recipe < ActiveRecord::Base
 
       FileUtils.mkdir_p(dir_name) unless FileTest.exist?(dir_name)
 
-      open(file_path, 'wb') do |output|
-        open(image_url) do |data|
-          output.write(data.read)
+      begin
+        open(file_path, 'wb') do |output|
+          open(image_url) do |data|
+            output.write(data.read)
+          end
         end
+        recipe.image_available = true
+        recipe.image_file_name = file_path
+        recipe.save
+        success = true
+      rescue => e
+        success = false
+        message = e.message
       end
-
-      recipe.image_available = true
-      recipe.image_file_name = file_path
-      recipe.save
     else
       recipe.image_available = false
       recipe.save
-      File.unlink(File.expand_path("../../data/#{code}/#{recipe_id}.html", __FILE__))
-      puts "skip"
+      success = false
+      message = 'image file not found'
     end
+
+    unless success
+      File.unlink(File.expand_path("../../data/#{code}/#{recipe_id}.html", __FILE__))
+      puts "skip : #{message}"
+    end
+
   end
 
   def self.get_html(code,recipe_id,recipe_url)#HTMLを保存する
