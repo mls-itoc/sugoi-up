@@ -1,6 +1,4 @@
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
+require './app'
 require 'open-uri'
 require 'csv'
 

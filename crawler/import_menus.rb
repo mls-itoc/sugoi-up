@@ -1,4 +1,4 @@
-require 'active_record'
+require './app'
 require 'csv'
 
 ActiveRecord::Base.establish_connection(

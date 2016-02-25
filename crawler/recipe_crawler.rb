@@ -1,12 +1,7 @@
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require
+require './app'
 require 'uri'
-require './model/menu.rb'
-require './model/recipe.rb'
 require 'open-uri'
 require 'fileutils'
-
 
 i = nil
 page_n = false
