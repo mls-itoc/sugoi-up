@@ -1,0 +1,76 @@
+# 料理画像自動分類器
+
+## 環境構築
+
+1. [Caffe on EC2 Ubuntu 14.04 Cuda 7](https://github.com/BVLC/caffe/wiki/Caffe-on-EC2-Ubuntu-14.04-Cuda-7)からGPUインスタンスを立ち上げる
+2. caffeプロジェクト内に本プロジェクトをcloneする.
+    ```
+    $ cd ~/caffe
+    $ git clone https://github.com/hiroeorz/cook_categorization.git
+    ```
+
+3. 分類対象の画像は、あらかじめリサイズが必要なため、必要に応じてツールをインストールしておく
+    ```
+    $ sudo apt-get install imagemagick
+    ```
+
+## 学習
+
+学習は以下の手順で行う
+
+```
+$ cd ~/caffe/cook_categorization
+$ make
+```
+
+### make パラメータ
+
+学習用DBと学習モデルの削除
+
+```
+$ make clean
+```
+
+`train.txt` と画像ファイルを元に学習用DB (LMDB)の生成
+
+```
+$ make lmdb
+```
+
+学習を実施し、学習モデルを生成する。
+
+```
+$ make model
+```
+
+## 分類
+
+分類実行前にパスを通す。
+
+```
+$ export PYTHONPATH=~/caffe/python:${PYTHONPATH} 
+```
+
+リサイズした画像に対して分類を実行する。
+
+```
+$ ./bin/classify target_images/guratan01.jpg
+> 4
+```
+分類結果のラベルが表示される。
+
+## メモ
+
+### libdc1394に関するエラー
+
+分類時に以下のようなエラーが出る場合
+
+```
+libdc1394 error: Failed to initialize libdc1394
+```
+
+以下を実行しておく。
+
+```
+sudo ln /dev/null /dev/raw1394
+```
