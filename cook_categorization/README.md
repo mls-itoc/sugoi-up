@@ -2,11 +2,13 @@
 
 ## 環境構築
 
+
 1. [Caffe on EC2 Ubuntu 14.04 Cuda 7](https://github.com/BVLC/caffe/wiki/Caffe-on-EC2-Ubuntu-14.04-Cuda-7)からGPUインスタンスを立ち上げる
-2. caffeプロジェクト内に本プロジェクトをcloneする.
+    * 以降の手順は実行ユーザーのホームディレクトリに `~/caffe` ディレクトリがあることを前提としています。
+2. 本プロジェクトをcloneする.
     ```
-    $ cd ~/caffe
-    $ git clone https://github.com/hiroeorz/cook_categorization.git
+    $ cd ~/
+    $ git clone https://github.com/mls-itoc/sugoi-up.git
     ```
 
 3. 分類対象の画像は、あらかじめリサイズが必要なため、必要に応じてツールをインストールしておく
@@ -19,16 +21,24 @@
 学習は以下の手順で行う
 
 ```
-$ cd ~/caffe/cook_categorization
+$ cd ~/sugoi-up/cook_categorization
 $ make
 ```
 
 ### make パラメータ
 
+以下の手順は、全て `$ make` で実行されます。機能単体で実行する場合のみ、以下を実行してください。
+
 学習用DBと学習モデルの削除
 
 ```
 $ make clean
+```
+
+学習用画像ファイルと `train.txt` の取得
+
+```
+$ make get-images
 ```
 
 `train.txt` と画像ファイルを元に学習用DB (LMDB)の生成
