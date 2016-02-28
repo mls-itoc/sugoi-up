@@ -11,7 +11,8 @@ $ export PYTHONPATH=~/caffe/python:${PYTHONPATH}
 リサイズした画像に対して分類を実行する。
 
 ```
-$ ./cook_categoraization/bin/classify [分類する画像へのパス]
+$ cd sugoi-up/cook_categorization
+$ ./bin/classify [分類する画像へのパス]
 > [結果ラベル]
 ```
 
