@@ -1,17 +1,18 @@
-all: clean lmd model
+all: clean get-images lmd model
 
-CONVERTER=../build/tools/convert_imageset
-CAFFE=../build/tools/caffe
+CONVERTER=~/caffe/build/tools/convert_imageset
+CAFFE=~/caffe/build/tools/caffe
 RESIZE=100
 
 clean:
 	rm -rf models
+	rm -rf images
 	rm -rf test_lmd 
 	rm -rf train_lmd 
 
 lmd:
-	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./train.txt train_lmd
-	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./train.txt test_lmd
+	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./images/train.txt train_lmd
+	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./images/train.txt test_lmd
 
 get-images:
 	./get_images
