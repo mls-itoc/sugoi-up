@@ -13,6 +13,9 @@ lmd:
 	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./train.txt train_lmd
 	@$(CONVERTER) -resize_height=$(RESIZE) -resize_width=$(RESIZE) -shuffle=true ./ ./train.txt test_lmd
 
+get-images:
+	./get_images
+
 model:
 	@if [ ! -d models ]; then \
 	  mkdir models; \
