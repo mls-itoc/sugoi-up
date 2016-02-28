@@ -1,5 +1,21 @@
 # 料理画像自動分類器
 
+## 環境構築手順
+
+
+1. [Caffe on EC2 Ubuntu 14.04 Cuda 7](https://github.com/BVLC/caffe/wiki/Caffe-on-EC2-Ubuntu-14.04-Cuda-7)からGPUインスタンスを立ち上げる
+    * 以降の手順は実行ユーザーのホームディレクトリに `~/caffe` ディレクトリがあることを前提としています。
+2. 本プロジェクトをcloneする.
+    ```
+    $ cd ~/
+    $ git clone https://github.com/mls-itoc/sugoi-up.git
+    ```
+
+3. 分類対象の画像は、あらかじめリサイズが必要なため、必要に応じてツールをインストールしておく
+    ```
+    $ sudo apt-get install imagemagick
+    ```
+
 ## 分類
 
 分類実行前にパスを通す。
@@ -22,22 +38,6 @@ $ ./bin/classify [分類する画像へのパス]
 $ ./bin/classify target_images/guratan01.jpg
 > 4
 ```
-
-## 環境構築手順
-
-
-1. [Caffe on EC2 Ubuntu 14.04 Cuda 7](https://github.com/BVLC/caffe/wiki/Caffe-on-EC2-Ubuntu-14.04-Cuda-7)からGPUインスタンスを立ち上げる
-    * 以降の手順は実行ユーザーのホームディレクトリに `~/caffe` ディレクトリがあることを前提としています。
-2. 本プロジェクトをcloneする.
-    ```
-    $ cd ~/
-    $ git clone https://github.com/mls-itoc/sugoi-up.git
-    ```
-
-3. 分類対象の画像は、あらかじめリサイズが必要なため、必要に応じてツールをインストールしておく
-    ```
-    $ sudo apt-get install imagemagick
-    ```
 
 ## 学習
 
