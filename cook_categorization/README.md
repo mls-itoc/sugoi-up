@@ -1,6 +1,28 @@
 # 料理画像自動分類器
 
-## 環境構築
+## 分類
+
+分類実行前にパスを通す。
+
+```
+$ export PYTHONPATH=~/caffe/python:${PYTHONPATH} 
+```
+
+リサイズした画像に対して分類を実行する。
+
+```
+$ ./cook_categoraization/bin/classify [分類する画像へのパス]
+> [結果ラベル]
+```
+
+例:
+
+```
+$ ./bin/classify target_images/guratan01.jpg
+> 4
+```
+
+## 環境構築手順
 
 
 1. [Caffe on EC2 Ubuntu 14.04 Cuda 7](https://github.com/BVLC/caffe/wiki/Caffe-on-EC2-Ubuntu-14.04-Cuda-7)からGPUインスタンスを立ち上げる
@@ -52,22 +74,6 @@ $ make lmdb
 ```
 $ make model
 ```
-
-## 分類
-
-分類実行前にパスを通す。
-
-```
-$ export PYTHONPATH=~/caffe/python:${PYTHONPATH} 
-```
-
-リサイズした画像に対して分類を実行する。
-
-```
-$ ./bin/classify target_images/guratan01.jpg
-> 4
-```
-分類結果のラベルが表示される。
 
 ## メモ
 
