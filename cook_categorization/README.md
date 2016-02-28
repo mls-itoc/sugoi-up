@@ -40,6 +40,37 @@ $ ./bin/classify target_images/guratan01.jpg
 
 ## 学習
 
+事前に学習用ファイルをダウンロードする。サンプルの学習用ファイルをダウンロードするには以下を実行する。
+
+```
+$ cd sugoi-up/cook_categorization
+$ make get-images
+```
+
+なお、学習用ファイルは以下のディレクトリ構成となることを期待している。
+
+```
+./images/tain.txt
+./images/画像ファイル1
+./images/画像ファイル2
+./images/画像ファイル3
+./images/画像ファイル4
+...
+
+```
+
+`train.txt` には `./cook_categoraization` ディレクトリから見た画像ファイルへの相対パスまたは絶対パスが記述されていなければならない。
+
+`train.txt` の例
+
+```
+images/30-304/omuraice01.jpg 3
+images/30-304/omuraice02.jpg 3
+images/30-304/omuraice03.jpg 3
+images/30-305/guratan01.jpg 4
+images/30-305/guratan02.jpg 4
+```
+
 学習は以下の手順で行う
 
 ```
