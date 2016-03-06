@@ -96,7 +96,7 @@ layer {
     lr_mult: 2
   }
   inner_product_param {
-    num_output: 643
+    num_output: 670
   }
 }
 layer {
