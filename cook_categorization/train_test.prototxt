@@ -13,7 +13,7 @@ layer {
   }
   data_param {
     source: "train_lmd"
-    batch_size: 100
+    batch_size: 3000
     backend: LMDB
   }
 }
@@ -31,7 +31,7 @@ layer {
   }
   data_param {
     source: "train_lmd"
-    batch_size: 100
+    batch_size: 3000
     backend: LMDB
   }
 }
@@ -142,7 +142,7 @@ layer {
     lr_mult: 2
   }
   inner_product_param {
-    num_output: 20
+    num_output: 643
     weight_filler {
       type: "xavier"
     }
