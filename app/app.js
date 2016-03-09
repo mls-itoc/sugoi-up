@@ -12,7 +12,7 @@ var app = express();
 // multer setput
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve('./uploads/'))
+    cb(null, path.resolve('./app/uploads/'))
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + '.jpg')
