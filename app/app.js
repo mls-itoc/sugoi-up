@@ -61,7 +61,7 @@ function cook_categorize(i) {
   return new Promise(function(resolve) {
     io.emit('log', { message: '分類中…' });
     var cook_categorizationPath = path.resolve('../cook_categorization');
-    var imgPath = path.resolve(i);
+    var imgPath = path.resolve('./' + i);
     exec('cd ' + cook_categorizationPath + ' && bin/classify ' + imgPath, function(err, stdout, stderr){
       resolve(stdout.replace(/\r?\n/g,""));
     });
