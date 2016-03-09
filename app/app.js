@@ -60,7 +60,8 @@ app.route('/')
 function cook_categorize(path) {
   return new Promise(function(resolve) {
     io.emit('log', { message: '分類中…' });
-    exec('python ./scripts/dummy01.py', function(err, stdout, stderr){
+    var cook_categorizationPath = path.resolve('../cook_categorization');
+    exec('cd ' + cook_categorizationPath + ' && bin/classify ' + path, function(err, stdout, stderr){
       resolve(stdout.replace(/\r?\n/g,""));
     });
   });
