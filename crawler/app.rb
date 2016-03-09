@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require
-require './model/menu.rb'
-require './model/recipe.rb'
-require './model/word.rb'
+require File.expand_path('../model/menu.rb', __FILE__)
+require File.expand_path('../model/recipe.rb', __FILE__)
+require File.expand_path('../model/word.rb', __FILE__)
 ActiveRecord::Base.establish_connection(
   adapter:   'sqlite3',
   database:  "db/recipe.sqlite"
