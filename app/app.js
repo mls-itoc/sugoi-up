@@ -12,7 +12,7 @@ var app = express();
 // multer setput
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/')
+    cb(null, path.resolve('./uploads/'))
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + '.jpg')
@@ -51,7 +51,6 @@ app.route('/')
     console.log(req.file);
     res.sendStatus(200);
     io.emit('log', { message: 'アップロード完了' });
-
 
     cook_categorize(req.file.path)
       .then(get_category_name)
