@@ -6,5 +6,5 @@ require File.expand_path('../model/recipe.rb', __FILE__)
 require File.expand_path('../model/word.rb', __FILE__)
 ActiveRecord::Base.establish_connection(
   adapter:   'sqlite3',
-  database:  "db/recipe.sqlite"
+  database:  File.expand_path('../db/recipe.sqlite', __FILE__)
 )
