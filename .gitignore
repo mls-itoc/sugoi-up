@@ -13,5 +13,10 @@ cook_categorization/images
 cook_categorization/models
 cook_categorization/train_lmd
 cook_categorization/test_lmd
+cook_categorization/meanfile.binaryproto
+cook_categorization/log.txt
+images.deploy
+images.quick
+
 
 app/node_modules/

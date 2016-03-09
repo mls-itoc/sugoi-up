@@ -19,9 +19,9 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 60
-    kernel_size: 3
-    stride: 1
+    num_output: 20
+    kernel_size: 5
+    stride: 2
   }
 }
 layer {
@@ -31,7 +31,7 @@ layer {
   top: "pool1"
   pooling_param {
     pool: MAX
-    kernel_size: 3
+    kernel_size: 5
     stride: 2
   }
 }
@@ -48,8 +48,8 @@ layer {
   }
   convolution_param {
     num_output: 50
-    kernel_size: 3
-    stride: 1
+    kernel_size: 5
+    stride: 2
   }
 }
 layer {
@@ -58,8 +58,8 @@ layer {
   bottom: "conv2"
   top: "pool2"
   pooling_param {
-    pool: AVE
-    kernel_size: 3
+    pool: MAX
+    kernel_size: 5
     stride: 2
   }
 }
@@ -75,7 +75,7 @@ layer {
     lr_mult: 2
   }
   inner_product_param {
-    num_output: 670
+    num_output: 500
   }
 }
 layer {
