@@ -53,16 +53,27 @@ app.route('/')
     io.emit('log', { message: 'アップロード完了' });
 
     cook_categorize(req.file.path)
+      .then(get_category_name)
       .then(poem_generate);
   });
 
 function cook_categorize(path) {
   return new Promise(function(resolve) {
     io.emit('log', { message: '分類中…' });
-    console.log(path);
     exec('python ./scripts/dummy01.py', function(err, stdout, stderr){
-      io.emit('category', { message: 'カテゴリ：' + stdout });
-      resolve(stdout);
+      resolve(stdout.replace(/\r?\n/g,""));
+    });
+  });
+}
+
+function get_category_name(category) {
+  return new Promise(function(resolve) {
+    var filePath = path.resolve('../crawler/get_category_name.rb');
+    var crawlerPath = path.resolve('../crawler');
+    console.log(filePath + ' ' + category);
+    exec('cd ' + crawlerPath + ' && ruby ' + filePath + ' ' + category, function(err, stdout, stderr){
+      io.emit('category', { message: 'カテゴリ：' + stdout.replace(/\r?\n/g,"") });
+      resolve(category);
     });
   });
 }
@@ -72,7 +83,7 @@ function poem_generate(category) {
     io.emit('log', { message: 'ポエム生成中…' });
     exec('python ./scripts/dummy02.py ' + category, function(err, stdout, stderr){
       io.emit('poem', { message: stdout });
-      resolve(stdout);
+      resolve(category);
     });
   });
 }

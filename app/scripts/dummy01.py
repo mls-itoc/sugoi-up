@@ -5,4 +5,4 @@ import time
 time.sleep(3)
 
 # カテゴリー
-print "0"
+print "1"
