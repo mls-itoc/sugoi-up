@@ -52,7 +52,7 @@ app.route('/')
     res.sendStatus(200);
     io.emit('log', { message: 'アップロード完了' });
 
-    cook_categorize(req.file.destination + req.file.path)
+    cook_categorize(req.file.path)
       .then(get_category_name)
       .then(poem_generate);
   });
@@ -62,6 +62,7 @@ function cook_categorize(imgPath) {
     io.emit('log', { message: '分類中…' });
     // var cook_categorizationPath = path.resolve('../cook_categorization');
     // var imgPath = path.resolve('./' + i);
+    console.log("flag1:" + 'cd /home/ubuntu/sugoi-up/cook_categorization && bin/classify ' + imgPath);
     exec('cd /home/ubuntu/sugoi-up/cook_categorization && bin/classify ' + imgPath, function(err, stdout, stderr){
       resolve(stdout.replace(/\r?\n/g,""));
     });
@@ -72,8 +73,8 @@ function get_category_name(category) {
   return new Promise(function(resolve) {
     var filePath = path.resolve('./crawler/get_category_name.rb');
     var crawlerPath = path.resolve('./crawler');
-    console.log(filePath + ' ' + category);
-    console.log("crawlerPath:" + crawlerPath);
+    console.log("flag2:" + filePath + ' ' + category);
+    console.log("flag3 crawlerPath:" + crawlerPath);
     exec('cd ' + crawlerPath + ' && ruby ' + filePath + ' ' + category, function(err, stdout, stderr){
       io.emit('category', { message: 'カテゴリ：' + stdout.replace(/\r?\n/g,"") });
       resolve(category);
