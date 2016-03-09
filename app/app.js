@@ -52,6 +52,7 @@ app.route('/')
     res.sendStatus(200);
     io.emit('log', { message: 'アップロード完了' });
 
+
     cook_categorize(req.file.path)
       .then(get_category_name)
       .then(poem_generate);
@@ -60,9 +61,9 @@ app.route('/')
 function cook_categorize(i) {
   return new Promise(function(resolve) {
     io.emit('log', { message: '分類中…' });
-    var cook_categorizationPath = path.resolve('../cook_categorization');
+    // var cook_categorizationPath = path.resolve('../cook_categorization');
     var imgPath = path.resolve('./' + i);
-    exec('cd ' + cook_categorizationPath + ' && bin/classify ' + imgPath, function(err, stdout, stderr){
+    exec('cd /home/ubuntu/sugoi-up/cook_categorization && bin/classify ' + imgPath, function(err, stdout, stderr){
       resolve(stdout.replace(/\r?\n/g,""));
     });
   });
