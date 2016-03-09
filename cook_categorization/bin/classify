@@ -1,0 +1,8 @@
+#!/bin/sh
+
+IMAGE_PATH=$1
+RESIZE=100
+RESIZED_PATH=${IMAGE_PATH}_${RESIZE}x${RESIZE}.jpg
+
+convert -geometry ${RESIZE}x${RESIZE}! ${IMAGE_PATH} ${RESIZED_PATH}
+python bin/classify.py ${RESIZED_PATH}

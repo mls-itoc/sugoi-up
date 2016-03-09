@@ -1,0 +1,5 @@
+#!/bin/sh
+
+wget https://dl.dropboxusercontent.com/u/24342163/images.tar.gz
+tar xvzf images.tar.gz
+rm images.tar.gz
