@@ -57,11 +57,12 @@ app.route('/')
       .then(poem_generate);
   });
 
-function cook_categorize(path) {
+function cook_categorize(i) {
   return new Promise(function(resolve) {
     io.emit('log', { message: '分類中…' });
     var cook_categorizationPath = path.resolve('../cook_categorization');
-    exec('cd ' + cook_categorizationPath + ' && bin/classify ' + path, function(err, stdout, stderr){
+    var imgPath = path.resolve(i);
+    exec('cd ' + cook_categorizationPath + ' && bin/classify ' + imgPath, function(err, stdout, stderr){
       resolve(stdout.replace(/\r?\n/g,""));
     });
   });
