@@ -85,7 +85,7 @@ function get_category_name(category) {
 function poem_generate(category) {
   return new Promise(function(resolve) {
     io.emit('log', { message: 'ポエム生成中…' });
-    var filePath = path.resolve('./app/scripts/dummy02');
+    var filePath = path.resolve('./app/scripts/dummy02.py');
     console.log("flag4:" + filePath);
     console.log("flag5:" + category);
     exec('python ' + filePath + ' ' + category, function(err, stdout, stderr){
