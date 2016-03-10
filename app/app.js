@@ -54,7 +54,7 @@ app.route('/')
 
     cook_categorize(req.file.path)
       .then(get_category_name)
-      .then(poem_generate);
+      .then(poem_generate2);
   });
 
 function cook_categorize(imgPath) {
@@ -95,6 +95,15 @@ function poem_generate(category) {
   });
 }
 
+function poem_generate2(category) {
+  return new Promise(function(resolve) {
+    io.emit('log', { message: 'ポエム生成中…' });
+    exec("cd /home/ubuntu/sugoi-up/Make_Sentence/bin && java -classpath '.:/home/ubuntu/sugoi-up/Make_Sentence/sqlite-jdbc-3.8.11.2.jar' make_sentence.sentence " + category, function(err, stdout, stderr){
+      io.emit('poem', { message: stdout });
+      resolve(category);
+    });
+  });
+}
 
 // Util
 function normalizePort(val) {
