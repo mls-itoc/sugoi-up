@@ -21,7 +21,7 @@ resize_size = 100
 MODEL_FILE = "./deploy.prototxt"
 
 # 学習済みモデルへのパス
-PRETRAINED = "./models.20160309/snapshot_iter_50000.caffemodel"
+PRETRAINED = "./models/snapshot_iter_250000.caffemodel"
 
 # 予測を行う画像ファイルへのパスをコマンドライン引数から受け取る
 argvs = sys.argv
