@@ -100,7 +100,7 @@ function poem_generate2(category) {
     io.emit('log', { message: 'ポエム生成中…' });
     exec("cd /home/ubuntu/sugoi-up/Make_Sentence/bin && java -classpath '.:/home/ubuntu/sugoi-up/Make_Sentence/sqlite-jdbc-3.8.11.2.jar' make_sentence.sentence " + category, function(err, stdout, stderr){
       console.log("flag6:" + err);
-      io.emit('poem', { message: stdout });
+      io.emit('poem', { message: stdout.slice(5) });
       resolve(category);
     });
   });
