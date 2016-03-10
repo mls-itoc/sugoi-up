@@ -76,7 +76,7 @@ function get_category_name(category) {
     console.log("flag2:" + filePath + ' ' + category);
     console.log("flag3 crawlerPath:" + crawlerPath);
     exec('cd ' + crawlerPath + ' && ruby ' + filePath + ' ' + category, function(err, stdout, stderr){
-      io.emit('category', { message: 'カテゴリ：' + stdout.replace(/\r?\n/g,"") });
+      io.emit('category', { message: 'メニュー：' + stdout.replace(/\r?\n/g,"") });
       resolve(category);
     });
   });
